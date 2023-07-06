@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BeFit.Data;
 using BeFit.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace BeFit.Controllers
 {
@@ -46,6 +48,7 @@ namespace BeFit.Controllers
         }
 
         // GET: Exercises/Create
+        [Authorize(Roles = "SuperAdmin")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +59,7 @@ namespace BeFit.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Create([Bind("Id,Name,InstructionalVideoUrl")] Exercise exercise)
         {
             if (ModelState.IsValid)
@@ -68,6 +72,7 @@ namespace BeFit.Controllers
         }
 
         // GET: Exercises/Edit/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Exercise == null)
@@ -88,6 +93,7 @@ namespace BeFit.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,InstructionalVideoUrl")] Exercise exercise)
         {
             if (id != exercise.Id)
@@ -119,6 +125,7 @@ namespace BeFit.Controllers
         }
 
         // GET: Exercises/Delete/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Exercise == null)
@@ -139,6 +146,7 @@ namespace BeFit.Controllers
         // POST: Exercises/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Exercise == null)

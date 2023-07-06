@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BeFit.Data;
 using BeFit.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace BeFit.Controllers
 {
+    [Authorize]
     public class WeightGoalsController : Controller
     {
         private readonly ApplicationDbContext _context;
