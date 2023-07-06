@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using BeFit.Models;
 
 namespace BeFit.Data
 {
@@ -49,5 +50,11 @@ namespace BeFit.Data
                 UserId = ADMIN_USER_ID
             });
         }
+        public DbSet<BeFit.Models.TrainingPlan>? TrainingPlan { get; set; }
+        public DbSet<BeFit.Models.TrainingDay>? TrainingDay { get; set; }
+        public DbSet<BeFit.Models.Exercise>? Exercise { get; set; }
+        public DbSet<BeFit.Models.TrainingDayExercise>? TrainingDayExercise { get; set; }
+        public DbSet<BeFit.Models.WeightGoal>? WeightGoal { get; set; }
+        public DbSet<BeFit.Models.WeightMeasurement>? WeightMeasurement { get; set; }
     }
 }
