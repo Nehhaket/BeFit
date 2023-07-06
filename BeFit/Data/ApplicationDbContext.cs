@@ -56,5 +56,6 @@ namespace BeFit.Data
         public DbSet<BeFit.Models.TrainingDayExercise>? TrainingDayExercise { get; set; }
         public DbSet<BeFit.Models.WeightGoal>? WeightGoal { get; set; }
         public DbSet<BeFit.Models.WeightMeasurement>? WeightMeasurement { get; set; }
+        public DbSet<BeFit.Models.User>? User { get; set; }
     }
 }

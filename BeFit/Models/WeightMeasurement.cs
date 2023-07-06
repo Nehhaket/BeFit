@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BeFit.Models
 {
@@ -6,8 +6,9 @@ namespace BeFit.Models
     {
         public int Id { get; set; }
         public DateTime DateTaken { get; set; }
+        [Range(30, 200)]
         public float Measurement { get; set; }
         public int UserId { get; set; }
-        public virtual IdentityUser User { get; set; }
+        public virtual User User { get; set; }
     }
 }
