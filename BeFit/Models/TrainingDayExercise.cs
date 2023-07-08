@@ -10,8 +10,8 @@ namespace BeFit.Models
         [Range(1, uint.MaxValue)]
         public uint NumberOfRepetitions { get; set; }
         public int TrainingDayId { get; set; }
-        public virtual TrainingDay TrainingDay { get; set; }
+        public virtual TrainingDay? TrainingDay { get; set; }
         public int ExerciseId { get; set; }
-        public virtual Exercise Exercise { get; set; }
+        public virtual Exercise? Exercise { get; set; }
     }
 }

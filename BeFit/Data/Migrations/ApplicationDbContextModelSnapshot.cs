@@ -125,10 +125,8 @@ namespace BeFit.Data.Migrations
                     b.Property<float>("Height")
                         .HasColumnType("real");
 
-                    b.Property<int>("IdentityUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IdentityUserId1")
+                    b.Property<string>("IdentityUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -137,7 +135,7 @@ namespace BeFit.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdentityUserId1");
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("User");
                 });
@@ -317,14 +315,14 @@ namespace BeFit.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "502422f8-b808-4b6a-921b-9f30c0c6bc02",
+                            ConcurrencyStamp = "59fc3cd1-0b5f-4b0a-a83a-ae9ef9310bee",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJR84Mq+GaVBY8KXVNv1QRrXaOAoE/sqoh2R+rmWrV/sYLlccCIlzWDH4ULfnASt8A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBGhDREZLWhjh3qxmka2FLQUoEGeLTrNI3Nv278l29cBmmg4JIvGfXH1ZNyBkbIYQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "22a6045b-0517-4d0a-9111-37a43af2cbc9",
+                            SecurityStamp = "80619c78-2fdd-469d-a8ab-473594aa8565",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -465,7 +463,9 @@ namespace BeFit.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId1");
+                        .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("IdentityUser");
                 });

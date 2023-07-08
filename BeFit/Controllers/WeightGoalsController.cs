@@ -22,32 +22,6 @@ namespace BeFit.Controllers
             _context = context;
         }
 
-        // GET: WeightGoals
-        public async Task<IActionResult> Index()
-        {
-              return _context.WeightGoal != null ? 
-                          View(await _context.WeightGoal.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.WeightGoal'  is null.");
-        }
-
-        // GET: WeightGoals/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.WeightGoal == null)
-            {
-                return NotFound();
-            }
-
-            var weightGoal = await _context.WeightGoal
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (weightGoal == null)
-            {
-                return NotFound();
-            }
-
-            return View(weightGoal);
-        }
-
         // GET: WeightGoals/Create
         public IActionResult Create()
         {
@@ -119,43 +93,6 @@ namespace BeFit.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(weightGoal);
-        }
-
-        // GET: WeightGoals/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.WeightGoal == null)
-            {
-                return NotFound();
-            }
-
-            var weightGoal = await _context.WeightGoal
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (weightGoal == null)
-            {
-                return NotFound();
-            }
-
-            return View(weightGoal);
-        }
-
-        // POST: WeightGoals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.WeightGoal == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.WeightGoal'  is null.");
-            }
-            var weightGoal = await _context.WeightGoal.FindAsync(id);
-            if (weightGoal != null)
-            {
-                _context.WeightGoal.Remove(weightGoal);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool WeightGoalExists(int id)

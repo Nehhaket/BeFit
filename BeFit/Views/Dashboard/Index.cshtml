@@ -1,0 +1,10 @@
+﻿@model BeFit.Models.Dashboard
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h3>Welcome @Model.UserName!</h3>
+
+<a asp-controller="Users" asp-action="Details">My Data</a>
+<a asp-controller="WeightMeasurements" asp-action="Create">Add weight measurement</a>

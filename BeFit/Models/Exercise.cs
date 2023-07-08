@@ -1,4 +1,6 @@
-﻿namespace BeFit.Models
+﻿using BeFit.Data;
+
+namespace BeFit.Models
 {
     public class Exercise
     {

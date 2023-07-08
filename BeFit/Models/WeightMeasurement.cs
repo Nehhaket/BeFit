@@ -9,6 +9,6 @@ namespace BeFit.Models
         [Range(30, 200)]
         public float Measurement { get; set; }
         public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

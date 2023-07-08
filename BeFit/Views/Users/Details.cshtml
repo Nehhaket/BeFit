@@ -1,0 +1,16 @@
+﻿@model BeFit.Models.User
+
+@{
+    ViewData["Title"] = "User data";
+}
+
+<div>
+    <h4>My data:</h4>
+    <p>Name: @Html.DisplayFor(model => model.Name)</p>
+    <p>Age: @Html.DisplayFor(model => model.Age)</p>
+    <p>Height: @Html.DisplayFor(model => model.Height)cm</p>
+</div>
+<div>
+    <a asp-action="Edit">Edit</a>
+    <a asp-controller="Dashboard" asp-action="Index">Back to dashboard</a>
+</div>
