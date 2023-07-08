@@ -315,14 +315,14 @@ namespace BeFit.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "59fc3cd1-0b5f-4b0a-a83a-ae9ef9310bee",
+                            ConcurrencyStamp = "3047c965-87b3-41dc-9e61-9727662bb9f1",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBGhDREZLWhjh3qxmka2FLQUoEGeLTrNI3Nv278l29cBmmg4JIvGfXH1ZNyBkbIYQQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJAzelIOqTI29r9nqARHs/lNVbb9XJemmRChnaq+0m7SjqMBGqYuuBlNDa2Z19UVYA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "80619c78-2fdd-469d-a8ab-473594aa8565",
+                            SecurityStamp = "c5c0a3e8-ac2d-4b4e-882e-0214d175c6c2",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

@@ -2,13 +2,9 @@
 {
     public class Dashboard
     {
-        public Dashboard(string userName, List<WeightMeasurement> weightMeasurements)
-        {
-            this.UserName = userName;
-            this.WeightMeasurements = weightMeasurements;
-        }
-
         public List<WeightMeasurement> WeightMeasurements { get; set; }
+        public WeightGoal? WeightGoal { get; set; }
         public string UserName { get; set; }
+        public List<TrainingDayExercise> ExercisesForToday { get; set; }
     }
 }

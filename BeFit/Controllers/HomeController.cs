@@ -23,44 +23,16 @@ namespace BeFit.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                var userId = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var user = await _context.User.AsNoTracking().FirstOrDefaultAsync(u => u.IdentityUserId == userId);
-                var trainingPlan = await _context.TrainingPlan.AsNoTracking().FirstOrDefaultAsync(t => t.UserId == user.Id);
-                if (trainingPlan != null)
-                {
-                    createAndAssignTrainingPlan(user);
-                }
                 return Redirect("/Dashboard");
             }
             else
             {
                 return View();
             }
-        }
-
-        private async void createAndAssignTrainingPlan(Models.User user)
-        {
-            var trainingPlan = new TrainingPlan { UserId = user.Id };
-            _context.TrainingPlan.Add(trainingPlan);
-
-            var exercises = await _context.Exercise.ToListAsync();
-            for(int i = 0; i < 7; i++)
-            {
-                var trainingDay = new TrainingDay { DayOfTheWeek = i, TrainingPlanId = trainingPlan.Id };
-                _context.TrainingDay.Add(trainingDay);
-
-                foreach (var exercise in exercises)
-                {
-                    var trainingDayExercise = new TrainingDayExercise { ExerciseId = exercise.Id, TrainingDayId = trainingDay.Id, NumberOfRepetitions = 5, NumberOfSets = 5 };
-                    _context.TrainingDayExercise.Add(trainingDayExercise);
-                }
-            }
-
-            return;
         }
     }
 }

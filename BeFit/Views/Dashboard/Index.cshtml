@@ -2,9 +2,56 @@
 
 @{
     ViewData["Title"] = "Dashboard";
+    var latestWeightMeasurement = Model.WeightMeasurements.LastOrDefault();
+    float? weightDiff = null;
+    if (Model.WeightGoal != null && latestWeightMeasurement != null)
+    {
+        weightDiff = latestWeightMeasurement.Measurement - Model.WeightGoal.Weight;
+    }
 }
 
 <h3>Welcome @Model.UserName!</h3>
 
 <a asp-controller="Users" asp-action="Details">My Data</a>
 <a asp-controller="WeightMeasurements" asp-action="Create">Add weight measurement</a>
+@if(Model.WeightGoal == null)
+{
+    <a asp-controller="WeightGoals" asp-action="Create">Add your weight goal</a>
+}
+else
+{
+    <a asp-controller="WeightGoals" asp-action="Edit">Update your weight goal</a>
+}
+
+<h4>Your exercises for today:</h4>
+<ul>
+@foreach(var exercise in Model.ExercisesForToday)
+{
+    <li><a asp-controller="Exercises" asp-action="Details" asp-route-id="@exercise.Exercise.Id">@exercise.Exercise.Name</a>, @exercise.NumberOfSets sets x @exercise.NumberOfRepetitions reps</li>
+}
+</ul>
+
+@if (Model.WeightGoal != null)
+{
+    <h4>Weight goal:</h4>
+    @if (weightDiff == null)
+    {
+        <p>Add first weight measurement to keep track of your progress towards your weight goal!</p>
+    }
+    @if (weightDiff > 0)
+    {
+        <p>Only @weightDiff left to go. Keep it up!</p>
+    }
+    if (weightDiff <= 0)
+    {
+        <p>Congratulations on hiting your weight goal (@Model.WeightGoal.Weight)!</p>
+    }
+}
+
+<h4>Your latest weight measurements:</h4>
+<ul>
+@foreach(var weightMeasurement in Model.WeightMeasurements)
+{
+    <li>@weightMeasurement.Measurement at @weightMeasurement.DateTaken</li>
+}
+</ul>

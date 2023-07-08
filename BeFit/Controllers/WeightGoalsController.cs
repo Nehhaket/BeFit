@@ -9,6 +9,7 @@ using BeFit.Data;
 using BeFit.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.Security.Claims;
 
 namespace BeFit.Controllers
 {
@@ -23,9 +24,12 @@ namespace BeFit.Controllers
         }
 
         // GET: WeightGoals/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var userId = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _context.User.FirstOrDefaultAsync(u => u.IdentityUserId == userId);
+            var weightGoal = new WeightGoal { UserId = user.Id };
+            return View(weightGoal);
         }
 
         // POST: WeightGoals/Create
@@ -35,28 +39,28 @@ namespace BeFit.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Weight,UserId")] WeightGoal weightGoal)
         {
-            if (ModelState.IsValid)
+            var userId = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var dbUser = await _context.User.AsNoTracking().FirstOrDefaultAsync(u => u.IdentityUserId == userId);
+            if (weightGoal.UserId == dbUser.Id)
             {
                 _context.Add(weightGoal);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Dashboard");
             }
             return View(weightGoal);
         }
 
         // GET: WeightGoals/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null || _context.WeightGoal == null)
+            var userId = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _context.User.AsNoTracking().FirstOrDefaultAsync(u => u.IdentityUserId == userId);
+            var weightGoal = await _context.WeightGoal.Where(wg => wg.UserId == user.Id).FirstOrDefaultAsync();
+            if (weightGoal == null || _context.WeightGoal == null)
             {
                 return NotFound();
             }
 
-            var weightGoal = await _context.WeightGoal.FindAsync(id);
-            if (weightGoal == null)
-            {
-                return NotFound();
-            }
             return View(weightGoal);
         }
 
@@ -72,7 +76,10 @@ namespace BeFit.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var userId = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var dbUser = await _context.User.AsNoTracking().FirstOrDefaultAsync(u => u.IdentityUserId == userId);
+
+            if (ModelState.IsValid && weightGoal.UserId == dbUser.Id)
             {
                 try
                 {
@@ -90,7 +97,7 @@ namespace BeFit.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Dashboard");
             }
             return View(weightGoal);
         }
